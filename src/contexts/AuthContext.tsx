@@ -1,4 +1,6 @@
 import { useContext, useState, createContext, ReactNode, useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { useHistory } from 'react-router-dom';
 
 import { auth, firebase } from '../services/firebase';
 
@@ -6,6 +8,7 @@ interface AuthContextProps {
   user: User | undefined,
   signInWithGoogle: () => Promise<void>,
   loading: boolean,
+  signOut: () => void,
 }
 
 interface User {
@@ -22,7 +25,7 @@ interface ChildrenProps {
 const authContext = createContext({} as AuthContextProps);
 
 export function AuthrProvider({ children }: ChildrenProps) {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<User | undefined>();
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -50,6 +53,18 @@ export function AuthrProvider({ children }: ChildrenProps) {
     }
   }, []);
 
+  async function signOut() {
+
+    await firebase.auth().signOut();
+
+    setUser(undefined);
+
+    toast.success(`Até logo!`);
+
+    signInWithGoogle();
+
+  }
+
   async function signInWithGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -68,8 +83,9 @@ export function AuthrProvider({ children }: ChildrenProps) {
         avatar: photoURL,
         email: email,
       });
+
+      toast.success(`Bem vindo, ${displayName}!`);
     }
-    setLoading(false);
   }
 
   // if(loading){
@@ -81,7 +97,8 @@ export function AuthrProvider({ children }: ChildrenProps) {
     value={{
       user,
       signInWithGoogle,
-      loading
+      loading,
+      signOut
     }}
   >
     { children }

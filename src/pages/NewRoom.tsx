@@ -1,6 +1,7 @@
 import { FormEvent } from 'react';
 import ilustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg';
+import userImg from '../assets/images/user-icon.svg';
 
 import { Button } from '../components/Button';
 import { Link, useHistory } from 'react-router-dom';
@@ -11,7 +12,7 @@ import { useState } from 'react';
 import { database } from '../services/firebase';
 
 export function NewRoom(){
-  const { user } = AuthContext();
+  const { user, signOut } = AuthContext();
 
   const history = useHistory();
 
@@ -50,6 +51,13 @@ export function NewRoom(){
             <div className="user-info">
               <h1>{user?.name}</h1>
               <h1>{user?.email}</h1>
+            </div>
+          </div>
+
+          <div style={{cursor: 'pointer'}} onClick={signOut} className="user-perfil">
+            <img src={userImg} alt="" />
+            <div className="user-info">
+              <h1>Usar outra conta</h1> 
             </div>
           </div>
 
