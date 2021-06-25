@@ -1,6 +1,5 @@
 import { useContext, useState, createContext, ReactNode, useEffect } from 'react';
 import toast from 'react-hot-toast';
-import { useHistory } from 'react-router-dom';
 
 import { auth, firebase } from '../services/firebase';
 
