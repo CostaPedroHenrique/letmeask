@@ -5,6 +5,7 @@ import { auth, firebase } from '../services/firebase';
 interface AuthContextProps {
   user: User | undefined,
   signInWithGoogle: () => Promise<void>,
+  loading: boolean,
 }
 
 interface User {
@@ -22,6 +23,7 @@ const authContext = createContext({} as AuthContextProps);
 
 export function AuthrProvider({ children }: ChildrenProps) {
   const [user, setUser] = useState<User>();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
@@ -40,6 +42,7 @@ export function AuthrProvider({ children }: ChildrenProps) {
           email: email,
         });
       }
+      setLoading(false);
     })
 
     return () => {
@@ -66,13 +69,19 @@ export function AuthrProvider({ children }: ChildrenProps) {
         email: email,
       });
     }
+    setLoading(false);
   }
+
+  // if(loading){
+  //   return <h1>Carregando...</h1>
+  // }
 
   return (
   <authContext.Provider
     value={{
       user,
       signInWithGoogle,
+      loading
     }}
   >
     { children }
