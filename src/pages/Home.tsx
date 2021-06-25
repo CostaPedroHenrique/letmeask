@@ -3,6 +3,7 @@ import { useHistory } from 'react-router-dom';
 
 import ilustrationImg from '../assets/images/illustration.svg'
 import logoImg from '../assets/images/logo.svg';
+import logoWhiteImg from '../assets/images/logo-white.svg';
 import googleIcon from '../assets/images/google-icon.svg';
 
 import { AuthContext } from '../contexts/AuthContext';
@@ -68,7 +69,7 @@ export function Home(){
       </div>
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Logo" />
+          <img src={theme ==="light" ? logoImg : logoWhiteImg} alt="Logo" />
           <button onClick={handleCreateRoom} className="create-room">
             <img src={googleIcon} alt="Icon do google" />
             Crie sua sala com o Google
