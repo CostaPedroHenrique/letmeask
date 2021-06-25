@@ -11,8 +11,11 @@ import { Button } from '../components/Button';
 import { database } from '../services/firebase';
 
 import '../styles/auth.scss'
+import { useTheme } from '../contexts/ThemeContext';
 
 export function Home(){
+  const { theme, toogleTheme } = useTheme();
+
   const [roomCode, setRoomCode] = useState('');
   const { user, signInWithGoogle } = AuthContext();
   const history = useHistory();
@@ -46,7 +49,7 @@ export function Home(){
   }
 
   return (
-    <div id='page-auth'>
+    <div id='page-auth' className={theme}>
       <aside>
         <img src={ilustrationImg} alt="Ilustração perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
@@ -54,7 +57,7 @@ export function Home(){
       </aside>
       <div className="switch-theme">
         <label id="switch" className="switch">
-            <input type="checkbox" /* onchange="toggleTheme()" */ id="slider"/>
+            <input type="checkbox" onChange={(e) => toogleTheme(e.target.checked)} id="slider"/>
             <span className="slider round"/>
         </label>
       </div>
