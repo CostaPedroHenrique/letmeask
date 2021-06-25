@@ -1,7 +1,8 @@
 import { FormEvent, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 
-import ilustrationImg from '../assets/images/illustration.svg'
+import toast from 'react-hot-toast';
+import ilustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 import logoWhiteImg from '../assets/images/logo-white.svg';
 import googleIcon from '../assets/images/google-icon.svg';
@@ -11,10 +12,11 @@ import { AuthContext } from '../contexts/AuthContext';
 import { Button } from '../components/Button';
 import { database } from '../services/firebase';
 
-import '../styles/auth.scss'
 import { useTheme } from '../contexts/ThemeContext';
 
-export function Home(){
+import '../styles/auth.scss';
+
+export function Home() {
   const { theme, toogleTheme } = useTheme();
 
   const [roomCode, setRoomCode] = useState('');
@@ -22,40 +24,39 @@ export function Home(){
   const history = useHistory();
 
   async function handleCreateRoom() {
-    if(!user){
+    if (!user) {
       await signInWithGoogle();
     }
     history.push('/rooms/new');
-
   }
   async function handleJoinRoom(event: FormEvent) {
     event.preventDefault();
 
-    if(roomCode.trim()===''){
+    if (roomCode.trim() === '') {
       return;
     }
     const roomRef = await database.ref(`rooms/${roomCode}`).get();
 
-    if(!roomRef.exists()){
-      alert('Room does not exists.');
+    if (!roomRef.exists()) {
+      toast.error('Room does not exists.');
       return;
     }
 
-    if(roomRef.val().endedAt){
-      alert('Room already closed.');
+    if (roomRef.val().endedAt) {
+      toast.error('Room already closed.');
+
       return;
     }
 
-    if(roomRef.val().authorId===user?.id){
-      history.push(`/admin/rooms/${roomCode}`)
-    }else{
-      history.push(`rooms/${roomCode}`)
+    if (roomRef.val().authorId === user?.id) {
+      history.push(`/admin/rooms/${roomCode}`);
+    } else {
+      history.push(`rooms/${roomCode}`);
     }
-
   }
 
   return (
-    <div id='page-auth' className={theme}>
+    <div id="page-auth" className={theme}>
       <aside>
         <img src={ilustrationImg} alt="Ilustração perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
@@ -63,14 +64,22 @@ export function Home(){
       </aside>
       <div className="switch-theme">
         <label id="switch" className="switch">
-            <input type="checkbox" onChange={(e) => toogleTheme(e.target.checked)} id="slider"/>
-            <span className="slider round"/>
+          <input
+            type="checkbox"
+            onChange={e => toogleTheme(e.target.checked)}
+            id="slider"
+          />
+          <span className="slider round" />
         </label>
       </div>
       <main>
         <div className="main-content">
-          <img src={theme ==="light" ? logoImg : logoWhiteImg} alt="Logo" />
-          <button onClick={handleCreateRoom} className="create-room">
+          <img src={theme === 'light' ? logoImg : logoWhiteImg} alt="Logo" />
+          <button
+            type="button"
+            onClick={handleCreateRoom}
+            className="create-room"
+          >
             <img src={googleIcon} alt="Icon do google" />
             Crie sua sala com o Google
           </button>
@@ -83,12 +92,10 @@ export function Home(){
               value={roomCode}
             />
 
-            <Button type="submit">
-              Entrar na sala
-            </Button>
+            <Button type="submit">Entrar na sala</Button>
           </form>
         </div>
       </main>
     </div>
-  )
+  );
 }

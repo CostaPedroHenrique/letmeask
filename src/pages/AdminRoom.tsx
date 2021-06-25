@@ -12,14 +12,11 @@ import logoImg from '../assets/images/logo.svg';
 import answerImg from '../assets/images/answer.svg';
 import checkImg from '../assets/images/check.svg';
 
-
-
 interface RoomParams {
   id: string;
 }
 
 export function AdminRoom() {
-
   const history = useHistory();
 
   // const { user } = AuthContext();
@@ -27,30 +24,30 @@ export function AdminRoom() {
   const params = useParams<RoomParams>();
   const roomId = params.id;
 
-  const {questions, title} = useRoom(roomId);
+  const { questions, title } = useRoom(roomId);
 
-  async function handleEndRoom(){
-    if(window.confirm('Tem certeza que deseja encerrar esta sala?')){
+  async function handleEndRoom() {
+    if (window.confirm('Tem certeza que deseja encerrar esta sala?')) {
       await database.ref(`rooms/${roomId}`).update({
         endetAt: new Date(),
-      })
+      });
     }
     history.push('/');
   }
 
-  async function handleDeleteQuestion(questionId: string){
-    if(window.confirm('Tem certeza que você deseja excluir esta pergunta?')){
+  async function handleDeleteQuestion(questionId: string) {
+    if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
       await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     }
   }
 
-  async function handleCheckQuestionAnswered(questionId: string){
+  async function handleCheckQuestionAnswered(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
       isAnswered: true,
     });
   }
 
-  async function handleHighlightQuestion(questionId: string){
+  async function handleHighlightQuestion(questionId: string) {
     await database.ref(`rooms/${roomId}/questions/${questionId}`).update({
       isHighlighted: true,
     });
@@ -63,7 +60,9 @@ export function AdminRoom() {
           <img onClick={() => history.push('/')} src={logoImg} alt="Letmeask" />
           <div>
             <RoomCode code={roomId} />
-            <Button onClick={handleEndRoom} isOutlined>Encerrar sala</Button>
+            <Button onClick={handleEndRoom} isOutlined>
+              Encerrar sala
+            </Button>
           </div>
         </div>
       </header>
@@ -71,13 +70,13 @@ export function AdminRoom() {
       <main>
         <div className="room-title">
           <h1>Sala {title}</h1>
-          {questions.length > 0 && (<span>{questions.length} pergunta(s)</span>)}
+          {questions.length > 0 && <span>{questions.length} pergunta(s)</span>}
         </div>
 
         <div className="question-list">
           {questions.map(question => {
             return (
-              <Question 
+              <Question
                 key={question.id}
                 content={question.content}
                 author={question.author}
@@ -96,7 +95,10 @@ export function AdminRoom() {
                       type="button"
                       onClick={() => handleCheckQuestionAnswered(question.id)}
                     >
-                      <img src={answerImg} alt="Marcar pergunta como respondida" />
+                      <img
+                        src={answerImg}
+                        alt="Marcar pergunta como respondida"
+                      />
                     </button>
                   </>
                 )}
@@ -112,5 +114,5 @@ export function AdminRoom() {
         </div>
       </main>
     </div>
-  )
-};
+  );
+}

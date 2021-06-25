@@ -1,17 +1,17 @@
-import { FormEvent } from 'react';
-import ilustrationImg from '../assets/images/illustration.svg'
+import { FormEvent, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import ilustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
 import userImg from '../assets/images/user-icon.svg';
 
 import { Button } from '../components/Button';
-import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../contexts/AuthContext';
 
-import '../styles/auth.scss'
-import { useState } from 'react';
+import '../styles/auth.scss';
+
 import { database } from '../services/firebase';
 
-export function NewRoom(){
+export function NewRoom() {
   const { user, signOut } = AuthContext();
 
   const history = useHistory();
@@ -21,7 +21,7 @@ export function NewRoom(){
   async function handleCreateRoom(event: FormEvent) {
     event.preventDefault();
 
-    if(newRoom.trim() === ''){
+    if (newRoom.trim() === '') {
       return;
     }
 
@@ -30,18 +30,19 @@ export function NewRoom(){
     const firebaseRoom = await roomRef.push({
       title: newRoom,
       authorId: user?.id,
-    })
+    });
 
-    history.push(`/admin/rooms/${firebaseRoom.key}`)
+    history.push(`/admin/rooms/${firebaseRoom.key}`);
   }
 
   return (
-    <div id='page-auth'>
+    <div id="page-auth">
       <aside>
         <img src={ilustrationImg} alt="Ilustração perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
         <p>Tire as dúvidas da sua audiência em tempo real.</p>
       </aside>
+
       <main>
         <div className="main-content">
           <img src={logoImg} alt="Logo" />
@@ -54,10 +55,10 @@ export function NewRoom(){
             </div>
           </div>
 
-          <div style={{cursor: 'pointer'}} onClick={signOut} className="user-perfil">
+          <div onClick={signOut} className="user-perfil">
             <img src={userImg} alt="" />
             <div className="user-info">
-              <h1>Usar outra conta</h1> 
+              <h1>Usar outra conta</h1>
             </div>
           </div>
 
@@ -70,13 +71,13 @@ export function NewRoom(){
               value={newRoom}
             />
 
-            <Button type="submit">
-              Criar sala
-            </Button>
+            <Button type="submit">Criar sala</Button>
           </form>
-          <p>Quer entrar em uma sala existente? <Link to="/">Clique aqui</Link></p>
+          <p>
+            Quer entrar em uma sala existente? <Link to="/">Clique aqui</Link>
+          </p>
         </div>
       </main>
     </div>
-  )
+  );
 }

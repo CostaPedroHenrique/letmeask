@@ -1,0 +1,61 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true,
+        "node": true,
+        "jest": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/recommended",
+        "airbnb",
+        "plugin:react-hooks/recommended", // React hooks rules
+        "prettier",
+        "plugin:prettier/recommended",
+        "eslint:recommended",
+        "plugin:jsx-a11y/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 12,
+        "sourceType": "module"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "prettier"
+    ],
+    "rules": {
+        "prettier/prettier": "error",
+        "space-before-function-paren": "off", //space after function name
+        "react/prop-types": "off", //It is not necessary, we will be typing with typescript
+        "react/react-in-jsx-scope": "off", // No need to import React when using Next.js
+        "jsx-a11y/anchor-is-valid": "off", // This rule is not compatible with Next.js"s <Link /> components
+        "@typescript-eslint/no-unused-vars": ["error"], // Why would you want unused vars?
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "@typescript-eslint/explicit-module-boundary-types": ["off"],
+        "react/jsx-filename-extension": [1, { "extensions": [".ts", ".tsx", ".js", ".jsx"] }],
+        "react/jsx-props-no-spreading": "off",
+        "import/no-extraneous-dependencies": "off",
+        "import/prefer-default-export": "off",
+        "import/no-cycle": "warn",
+        "react/require-default-props": "off",
+        "jsx-a11y/click-events-have-key-events": "off",
+        "jsx-a11y/no-static-element-interactions": "off",
+        "jsx-a11y/no-noninteractive-element-interactions": "off",
+        "jsx-a11y/label-has-associated-control": "off",
+        "import/extensions": ["error", "ignorePackages", {
+          "js": "never",
+          "jsx": "never",
+          "ts": "never",
+          "tsx": "never"
+        }]
+      }
+}

@@ -1,19 +1,24 @@
-import { useEffect } from 'react';
-import { ReactNode, createContext, useContext, useState } from 'react';
+import {
+  useEffect,
+  ReactNode,
+  createContext,
+  useContext,
+  useState,
+} from 'react';
 
 type Theme = 'light' | 'dark';
 
 type ThemeContextProviderProps = {
-  children: ReactNode
-}
+  children: ReactNode;
+};
 
 type ThemeContextType = {
   theme: Theme;
   toogleTheme: (themeSelected: boolean) => void;
-}
+};
 const ThemeContext = createContext({} as ThemeContextType);
 
-export function ThemeContextProvider({children}: ThemeContextProviderProps){
+export function ThemeContextProvider({ children }: ThemeContextProviderProps) {
   const [currentTheme, setCurrentTheme] = useState<Theme>(() => {
     const storagedTheme = localStorage.getItem('theme');
 
@@ -22,17 +27,16 @@ export function ThemeContextProvider({children}: ThemeContextProviderProps){
 
   useEffect(() => {
     localStorage.setItem('theme', currentTheme);
-  },[currentTheme]);
+  }, [currentTheme]);
 
   function toogleTheme(themeSelected: boolean) {
-    
-    setCurrentTheme(themeSelected ? 'light' : 'dark')
+    setCurrentTheme(themeSelected ? 'light' : 'dark');
   }
   return (
-    <ThemeContext.Provider value={{ theme: currentTheme, toogleTheme}}>
+    <ThemeContext.Provider value={{ theme: currentTheme, toogleTheme }}>
       {children}
     </ThemeContext.Provider>
-  )
+  );
 }
 
 export const useTheme = () => {

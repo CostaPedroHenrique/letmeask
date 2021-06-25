@@ -2,24 +2,30 @@ import { ReactNode } from 'react';
 import cx from 'classnames';
 import './question.scss';
 
-interface QuestioProps  {
+interface QuestioProps {
   content: string;
   author: {
     name: string;
     avatar: string;
-  },
-  children?: ReactNode,
-  isAnswered?: boolean,
-  isHighlighted?: boolean,
+  };
+  children?: ReactNode;
+  isAnswered?: boolean;
+  isHighlighted?: boolean;
 }
 
-export function Question({ content, author, children, isAnswered = false, isHighlighted = false }: QuestioProps){
+export function Question({
+  content,
+  author,
+  children,
+  isAnswered = false,
+  isHighlighted = false,
+}: QuestioProps) {
   return (
     <div
       className={cx(
         'question',
-        {answered: isAnswered},
-        {highlighted: isHighlighted && !isAnswered}
+        { answered: isAnswered },
+        { highlighted: isHighlighted && !isAnswered },
       )}
     >
       <p>{content}</p>
@@ -28,9 +34,7 @@ export function Question({ content, author, children, isAnswered = false, isHigh
           <img src={author.avatar} alt={author.name} />
           <span>{author.name}</span>
         </div>
-        <div>
-          {children}
-        </div>
+        <div>{children}</div>
       </footer>
     </div>
   );
