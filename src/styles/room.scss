@@ -1,4 +1,26 @@
 #page-room {
+  &.dark {
+    background: #202124;
+
+    /* .main-content{
+      form input {
+        background: #202124;
+        color: #dbdcdd;
+      }
+
+      .user-perfil {
+        background: #835afd;
+        color: #dbdcdd;
+      }
+
+      h2 {
+        color: #f2f2f2!important;
+      }
+
+    } */
+  }
+
+
   header {
     padding: 24px;
     border-bottom: 1px solid #e2e2e2;

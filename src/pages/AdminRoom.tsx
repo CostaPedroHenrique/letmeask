@@ -27,6 +27,7 @@ export function AdminRoom() {
   const { questions, title } = useRoom(roomId);
 
   async function handleEndRoom() {
+    /* eslint-disable-next-line */
     if (window.confirm('Tem certeza que deseja encerrar esta sala?')) {
       await database.ref(`rooms/${roomId}`).update({
         endetAt: new Date(),
@@ -36,6 +37,7 @@ export function AdminRoom() {
   }
 
   async function handleDeleteQuestion(questionId: string) {
+    /* eslint-disable-next-line */
     if (window.confirm('Tem certeza que você deseja excluir esta pergunta?')) {
       await database.ref(`rooms/${roomId}/questions/${questionId}`).remove();
     }

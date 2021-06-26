@@ -66,6 +66,7 @@ export function Home() {
         <label id="switch" className="switch">
           <input
             type="checkbox"
+            defaultChecked={theme !== 'dark'}
             onChange={e => toogleTheme(e.target.checked)}
             id="slider"
           />

@@ -3,13 +3,25 @@ $small: 500px;
   display: flex;
   align-items: stretch;
   height: 100vh;
+  transition: 2s;
 
   &.dark {
     background: #202124;
 
-    .main-content form input {
-      background: #202124;
-      color: #FFF;
+    .main-content{
+      form input {
+        background: #202124;
+        color: #dbdcdd;
+      }
+
+      .user-perfil {
+        background: #835afd;
+        color: #dbdcdd;
+      }
+
+      h2 {
+        color: #f2f2f2!important;
+      }
 
     }
   }

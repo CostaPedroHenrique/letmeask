@@ -2,16 +2,21 @@ import { FormEvent, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import ilustrationImg from '../assets/images/illustration.svg';
 import logoImg from '../assets/images/logo.svg';
+import logoWhiteImg from '../assets/images/logo-white.svg';
+
 import userImg from '../assets/images/user-icon.svg';
 
 import { Button } from '../components/Button';
 import { AuthContext } from '../contexts/AuthContext';
-
-import '../styles/auth.scss';
+import { useTheme } from '../contexts/ThemeContext';
 
 import { database } from '../services/firebase';
 
+import '../styles/auth.scss';
+
 export function NewRoom() {
+  const { theme } = useTheme();
+
   const { user, signOut } = AuthContext();
 
   const history = useHistory();
@@ -36,7 +41,7 @@ export function NewRoom() {
   }
 
   return (
-    <div id="page-auth">
+    <div id="page-auth" className={theme}>
       <aside>
         <img src={ilustrationImg} alt="Ilustração perguntas e respostas" />
         <strong>Crie salas de Q&amp;A ao-vivo</strong>
@@ -45,7 +50,7 @@ export function NewRoom() {
 
       <main>
         <div className="main-content">
-          <img src={logoImg} alt="Logo" />
+          <img src={theme === 'light' ? logoImg : logoWhiteImg} alt="Logo" />
 
           <div className="user-perfil">
             <img src={user?.avatar} alt="" />
