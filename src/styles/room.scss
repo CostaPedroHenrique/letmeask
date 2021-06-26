@@ -1,25 +1,4 @@
 #page-room {
-  &.dark {
-    background: #202124;
-
-    /* .main-content{
-      form input {
-        background: #202124;
-        color: #dbdcdd;
-      }
-
-      .user-perfil {
-        background: #835afd;
-        color: #dbdcdd;
-      }
-
-      h2 {
-        color: #f2f2f2!important;
-      }
-
-    } */
-  }
-
 
   header {
     padding: 24px;
@@ -45,12 +24,63 @@
           height: 40px;
         }
       }
+
+      @media screen and (max-width: 500px) {
+        align-items: flex-start;
+        > img {
+        max-height: 35px;
+        }
+        >div {
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          button {
+            height: 30px;
+            width: 250px;
+            font-size: 12px;
+
+            span {
+              font-size: 12px;
+            }
+          }
+        }
+        button {
+          height: 30px;
+          width: 250px;
+          font-size: 12px;
+
+          span {
+            font-size: 9px;
+          }
+        }
+      }
+
+      @media screen and (max-width: 400px) {
+        >div {
+          button {
+            height: 30px;
+            width: 200px;
+            font-size: 10px;
+
+            span {
+              font-size: 9px;
+            }
+          }
+        }
+      }
+
     }
   }
 
   main {
     max-width: 800px;
     margin: 0 auto;
+
+    @media screen and (max-width: 500px) {
+      padding: 10px;
+    }
+
 
     .room-title {
       margin: 32px 0 24px;
