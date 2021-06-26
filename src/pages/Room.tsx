@@ -14,7 +14,7 @@ interface RoomParams {
 }
 
 export function Room() {
-  const { user } = AuthContext();
+  const { user, signInWithGoogle } = AuthContext();
 
   const params = useParams<RoomParams>();
   const roomId = params.id;
@@ -95,7 +95,10 @@ export function Room() {
             ) : (
               <span>
                 Para enviar uma pergunta,{' '}
-                <button type="button">faça seu login</button>.
+                <button onClick={signInWithGoogle} type="button">
+                  faça seu login
+                </button>
+                .
               </span>
             )}
             <Button type="submit" disabled={!user}>
